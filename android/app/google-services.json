@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "325609658530",
+    "firebase_url": "https://herespot-7191d-default-rtdb.firebaseio.com",
+    "project_id": "herespot-7191d",
+    "storage_bucket": "herespot-7191d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325609658530:android:1f5b2d68cb500487529ffb",
+        "android_client_info": {
+          "package_name": "com.project.herespot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325609658530-74t5cdbe553f4p6320jo1iitcrbmn1b2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1KGiK-7g8SBkmNfFel89URt9765nJy1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325609658530-74t5cdbe553f4p6320jo1iitcrbmn1b2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
