@@ -72,11 +72,11 @@ class ErrorWidget extends StatelessWidget {
 class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return MaterialApp(
+      home:CircularProgressIndicator() ,
+        );
+
+
   }
 }
 

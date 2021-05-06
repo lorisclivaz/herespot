@@ -31,6 +31,12 @@ dependencies:
   provider: ^5.0.0
   firebase_auth: ^1.1.2
   firebase_core: ^1.1.0
+  firebase_database: ^6.1.2
+  flutter_map: ^0.12.0
+  flutter_map_marker_cluster: ^0.3.4
+  syncfusion_flutter_maps: ^19.1.59-beta
+  flutter_map_marker_popup: ^0.2.1
+
 
 dev_dependencies:
   flutter_test:
