@@ -16,9 +16,10 @@ class EventSpot {
   String geoPoint;
   String dateDebut;
   String dateFin;
+  String image;
 
   //Constructeur
-  EventSpot({this.adresse, this.lat, this.long, this.dateFin, this.ville, this.tarif, this.description, this.titre});
+  EventSpot({this.adresse, this.lat, this.long, this.dateFin, this.ville, this.tarif, this.description, this.titre, this.image});
 
   EventSpot.fromSnapshot(DataSnapshot snapshot)
   {
@@ -31,6 +32,8 @@ class EventSpot {
     this.dateFin = snapshot.value["Description"];
     this.dateFin = snapshot.value["Titre"];
     this.dateFin = snapshot.value["Adresse"];
+    this.image = snapshot.value["Image"];
+
 
 
 

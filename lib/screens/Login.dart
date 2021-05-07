@@ -7,6 +7,7 @@ class Login extends StatefulWidget {
 
   final Function toggleScreen;
 
+
   const Login({Key key, this.toggleScreen}) : super(key: key);
 
   @override
@@ -18,6 +19,8 @@ class _LoginState extends State<Login> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   final _formkey = GlobalKey<FormState>();
+
+
 
   @override
   void initState() {
@@ -129,8 +132,7 @@ class _LoginState extends State<Login> {
                       onPressed: () async{
                         if(_formkey.currentState.validate())
                           {
-                            print('Email: ${_emailController.text}');
-                            print('Email: ${_passwordController.text}');
+
 
                             await loginProvider.login(
                                 _emailController.text.trim(),

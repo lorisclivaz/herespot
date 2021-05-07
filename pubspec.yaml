@@ -36,7 +36,8 @@ dependencies:
   flutter_map_marker_cluster: ^0.3.4
   syncfusion_flutter_maps: ^19.1.59-beta
   flutter_map_marker_popup: ^0.2.1
-
+  fab_circular_menu: ^1.0.0
+  settings_ui: ^0.2.0
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +56,7 @@ flutter:
 
   assets:
       - assets/herespot.png
-  #   - images/a_dot_ham.jpeg
+      - assets/avatar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

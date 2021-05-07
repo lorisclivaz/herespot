@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:herespot/Models/events.dart';
+import 'package:herespot/screens/settings.dart';
 import 'package:latlong/latlong.dart';
-import 'package:provider/provider.dart';
 import 'package:herespot/Models/popup.dart';
-import 'package:intl/intl.dart';
+import 'package:herespot/screens/listEvents.dart';
+import 'package:herespot/screens/addEvents.dart';
 
 
 
@@ -29,16 +30,77 @@ class MapPageScaffold extends StatelessWidget {
   MapPageScaffold(this.popupSnap);
 
 
-
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home page '),
-        actions: [
+      appBar:  AppBar(
+
+        backgroundColor: Colors.black38,
+        title: Text('Test Market'),
+        centerTitle: true,
+        elevation: 0.0,
+        // actions
 
 
-        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              // 현재 계정
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/avatar.png'),
+                backgroundColor: Colors.white,
+              ),
+              // 다른 계정
+              accountName: Text('zodlab'),
+              accountEmail: Text(''),
+              decoration: BoxDecoration(
+                color: Colors.black38,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40.0),
+                  bottomRight: Radius.circular(40.0),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home, color: Colors.grey[800],),
+              title: Text('List events'),
+              onTap: (){
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ListEvents(),
+                    ));
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings, color: Colors.grey[800],),
+              title: Text('Setting'),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Settings(),
+                )
+                );
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(Icons.question_answer, color: Colors.grey[800],),
+              title: Text('add events'),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => addEvents(),)
+                );
+              },
+              trailing: Icon(Icons.add),
+            ),
+          ],
+        ),
       ),
       body: MapPage(popupSnap),
       floatingActionButton: _buttonToSwitchSnap(context),
@@ -51,23 +113,25 @@ class MapPageScaffold extends StatelessWidget {
     /// dynamically. To demo different snap types this rebuilds the page with
     /// the new snap type. If you have a use case for dynamically changing the
     /// snap please create a GitHub Issue describing the use case.
-    return Padding(
-      padding: EdgeInsets.only(top: kToolbarHeight),
-      child: FloatingActionButton.extended(
-        label: Text(_isFirstSnap ? 'Load events' : 'Load events'),
-        onPressed: () {
-          final newSnap =
-          _isFirstSnap ? PopupSnap.mapBottom : PopupSnap.markerTop;
-          Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (_, __, ___) => MapPageScaffold(newSnap),
-            ),
-          );
-        },
-        icon: Icon(
-            _isFirstSnap ? Icons.vertical_align_bottom_rounded : Icons.vertical_align_bottom_rounded),
-        backgroundColor: Colors.green,
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.only(top: kToolbarHeight),
+        child: FloatingActionButton.extended(
+          label: Text(_isFirstSnap ? 'Load events' : 'Load events'),
+          onPressed: () {
+            final newSnap =
+            _isFirstSnap ? PopupSnap.mapBottom : PopupSnap.markerTop;
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => MapPageScaffold(newSnap),
+              ),
+            );
+          },
+          icon: Icon(
+              _isFirstSnap ? Icons.vertical_align_bottom_rounded : Icons.vertical_align_bottom_rounded),
+          backgroundColor: Colors.green,
+        ),
       ),
     );
   }
@@ -115,7 +179,7 @@ class _MapPageState extends State<MapPage> {
 
 
 
-    //Récupération des solutions
+    //Récupération des events
     fb.once().then((DataSnapshot snap) {
       var data = snap.value;
       list.clear();
@@ -137,7 +201,7 @@ class _MapPageState extends State<MapPage> {
         month = now.month;
         day = now.day;
 
-        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 10)
+        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 100)
           {
 
             _points.add(cord);

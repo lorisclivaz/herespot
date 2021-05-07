@@ -12,6 +12,10 @@ class AuthServices with ChangeNotifier{
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 
+
+
+
+
   Future register(String email, String password) async {
     setLoading(true);
     try{
