@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:herespot/Models/events.dart';
+import 'package:herespot/screens/DetailEvent.dart';
 
 class ListEvents extends StatefulWidget {
   @override
@@ -24,6 +25,7 @@ class _ListEventsState extends State<ListEvents> {
   List<EventSpot> filteredList = List();
   TextEditingController _textController = TextEditingController();
 
+  List<EventSpot> newEventList = [];
 
 
 
@@ -37,7 +39,7 @@ class _ListEventsState extends State<ListEvents> {
       var data = snap.value;
       list.clear();
       data.forEach((value) {
-        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'], ville: value['Ville'],tarif: value['Tarif'], description: value['Description'], titre: value['Titre'],image: value['Image']);
+        EventSpot event = new EventSpot(lien:value['Lien'] ,uid:value['uid'] ,adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'],dateDebut:value['Date début'] , ville: value['Ville'],tarif: value['Tarif'], description: value['Description'], titre: value['Titre'],image: value['Image']);
 
         String eventYear = event.dateFin.substring(6,10);
         String eventMonth = event.dateFin.substring(3,5);
@@ -52,7 +54,7 @@ class _ListEventsState extends State<ListEvents> {
         month = now.month;
         day = now.day;
 
-        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 10)
+        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 30 && event.titre != null && event.description != null && event.adresse != null && event.tarif != null)
         {
           compteur ++;
           list.add(event);
@@ -70,15 +72,25 @@ class _ListEventsState extends State<ListEvents> {
 
 
 
+
   }
 
-
+  void _onItemChanged(String value) {
+    setState(() {
+      newEventList = list.where((val) {
+        return val.ville.toLowerCase().contains(value.toLowerCase());
+      }).toList();
+    });
+  }
 
 
   @override
   Widget build(BuildContext context) {
 
-    List<EventSpot> events = List();
+    // print(list.length);
+    //for(var i = 0; i< list.length; i++) {
+    //print(list[i].titre);
+    //}
 
     return Scaffold(
       appBar:  AppBar(
@@ -93,75 +105,77 @@ class _ListEventsState extends State<ListEvents> {
         // actions
 
       ),
-      body: Column(
-        children: [
-      Padding (
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: TextField(
-        controller: _textController,
-        onChanged: (text) {
-          print('salut');
-          text = "${selectedDate.day}.${selectedDate.month}.${selectedDate.year}";
-          setState(() {
-            filteredList = list
-                .where((element) => element.dateDebut.toLowerCase().contains(text))
-                .toList();
 
 
-          });
-        },
-      ),
-    ),
-          SizedBox(
-            height: 20.0,
-          ),
-          RaisedButton(
-            onPressed: () => _selectDate(context), // Refer step 3
-            child: Text(
-              'Select date',
-              style:
-              TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 80,
+
+              child: Expanded(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'Recherche Ville'
+                  ),
+                  onChanged:_onItemChanged ,
+                ),
+              ),
             ),
-            color: Colors.greenAccent,
-
-          ),
-
-          if (filteredList.length == 0)
-            Expanded(
-                child: Container(
-                    child: Text("No Result Found")
-                )
-            )
-          else
             Expanded(
                 child: ListView.builder(
-                    itemCount: filteredList.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return Container(
-                          margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-                          child: Text(filteredList[index].dateDebut)
-                      );
-                    }
+                  itemBuilder: (context, i)
+                  {
+                    return GestureDetector(
+                      onTap: (){
+
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailEvent(list[i].uid, list[i].description, list[i].adresse, list[i].dateDebut
+                                  , list[i].dateFin, list[i].tarif, list[i].place, list[i].titre, list[i].lien),
+                              ),);
+
+
+                        print(list[i].uid);
+                      },
+                      child: Card(
+                        elevation: 5.0,
+                        margin:EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0, bottom: 5.0) ,
+                        child: Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "Début : ${list[i].dateDebut}            Fin: ${list[i].dateFin}       Ville: ${list[i].ville}  ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              new SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "${list[i].adresse}",
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 15.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: newEventList.length,
                 )
             )
-        ]
-      ));
-
-  }
-
-  _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-
+          ],
+        ),
+      ),//Body
     );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
 
-        _textController.text = "${selectedDate.day}.${selectedDate.month}.${selectedDate.year}";
-      });
   }
+
+
 }

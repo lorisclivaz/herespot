@@ -38,6 +38,7 @@ dependencies:
   flutter_map_marker_popup: ^0.2.1
   fab_circular_menu: ^1.0.0
   settings_ui: ^0.2.0
+  webview_flutter: ^1.0.5
 
 dev_dependencies:
   flutter_test:

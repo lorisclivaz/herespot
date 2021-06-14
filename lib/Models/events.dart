@@ -17,13 +17,19 @@ class EventSpot {
   String dateDebut;
   String dateFin;
   String image;
+  String place;
+  String lien;
 
   //Constructeur
-  EventSpot({this.adresse, this.lat, this.long, this.dateFin, this.ville, this.tarif, this.description, this.titre, this.image});
+  EventSpot({this.place,this.adresse, this.lat, this.long, this.dateFin,this.dateDebut, this.ville, this.tarif, this.description, this.titre, this.image, this.uid, this.lien});
 
   EventSpot.fromSnapshot(DataSnapshot snapshot)
   {
 
+    this.lien = snapshot.value["Lien"];
+    this.place = snapshot.value["Place"];
+    this.uid = snapshot.value["Date début"];
+    this.uid = snapshot.value["uid"];
     this.lat = snapshot.value["lat"];
     this.long = snapshot.value["lon"];
     this.dateFin = snapshot.value["Date de fin"];
