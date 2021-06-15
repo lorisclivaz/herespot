@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    'Sign in to continue',
+                    'se connecter pour continuer',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -103,9 +103,9 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     controller: _emailController,
                     validator: (val) =>
-                      val.isNotEmpty ? null : 'Please enter a email address',
+                      val.isNotEmpty ? null : 'Entrer votre adresse e-mail',
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: 'E-mail',
                       prefixIcon: Icon(Icons.mail),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
@@ -116,9 +116,9 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     obscureText: true,
                     controller: _passwordController,
-                    validator: (val) => val.length < 6 ? 'Enter more than 6 char' : null,
+                    validator: (val) => val.length < 6 ? 'Entrer plus de 6 charactères' : null,
                     decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'Mot de passe',
                         prefixIcon: Icon(Icons.vpn_key),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)
@@ -150,7 +150,7 @@ class _LoginState extends State<Login> {
                     child: loginProvider.isLoading
                     ? CircularProgressIndicator()
                     : Text(
-                      'Login',
+                      'Se connecter',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -161,10 +161,10 @@ class _LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Don''t have an account'),
+                      Text('Je n''ai pas de compte'),
                       SizedBox(width: 10,),
                       TextButton(onPressed: () => widget.toggleScreen(),
-                          child: Text('Register'))
+                          child: Text('S''enregistrer'))
                     ],
                   )
 

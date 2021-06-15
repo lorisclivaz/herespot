@@ -33,22 +33,40 @@ class Database{
 
 
   //Méthode permettant de créer un évènement
-  Future<String> createEvent(String nom, String prenom, String region, String email, String uid) async {
+  Future<String> createEvent(String titre, String description, String adresse, String ville, String tarif, String debut,
+      String fin, String lat, String long, String region, String place, String lien, String infopratique, String uid) async {
 
-    var user = <String, dynamic>{
-      'Nom':nom,
-      'Prenom' : prenom,
-      'Email': email,
-      'Uid': uid
+    var event = <String, dynamic>{
+      'Titre':titre,
+      'Description':description,
+      'Adresse':adresse,
+      'Date de fin' : fin,
+      'Date début': debut,
+      'Informations pratiques': infopratique,
+      'Lien': lien,
+      'Place': place,
+      'Tarif': tarif,
+      'Région': region,
+      'Ville': ville,
+      'lat': lat,
+      'lon': long,
+      'uid': uid
+
+
+
+
+
+
+
 
     };
 
     DatabaseReference reference = FirebaseDatabase.instance
         .reference()
-        .child("users").push();
+        .child("Properties").push();
 
 
-    reference.set(user);
+    reference.set(event);
   }
 
 

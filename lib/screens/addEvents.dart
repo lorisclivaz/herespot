@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:herespot/database/database.dart';
 
 
 class addEvents extends StatefulWidget {
@@ -13,21 +16,36 @@ class _addEventsState extends State<addEvents> {
   TextEditingController _description = TextEditingController();
   TextEditingController _adresse = TextEditingController();
   TextEditingController _ville = TextEditingController();
-  TextEditingController _categorie = TextEditingController();
-  TextEditingController _capacite = TextEditingController();
+  TextEditingController _infopratique = TextEditingController();
+  TextEditingController _lien = TextEditingController();
   TextEditingController _tarifs = TextEditingController();
+  TextEditingController _place = TextEditingController();
+  TextEditingController _region = TextEditingController();
+  TextEditingController _latitude = TextEditingController();
+  TextEditingController _longitude = TextEditingController();
+
+
 
   TextEditingController dateDebut = TextEditingController();
   TextEditingController dateFin = TextEditingController();
 
+  int randomNumber;
 
+  Database db = new Database();
 
   @override
   Widget build(BuildContext context) {
+
+    var rng = new Random();
+    int max = 100000000;
+    int min = 81000000;
+    randomNumber = min + rng.nextInt(max - min);
+    print(randomNumber);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black38,
-        title: Text('Add Events'),
+        title: Text('Ajouter un évènement'),
         centerTitle: true,
         elevation: 0.0,
         leading: IconButton(
@@ -107,9 +125,9 @@ class _addEventsState extends State<addEvents> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(6.0),
                 child: TextFormField(
-                  controller: _categorie,
+                  controller: _infopratique,
                   decoration: InputDecoration(
-                      labelText: "Catégorie",
+                      labelText: "Info pratique",
                       border: OutlineInputBorder()),
 
                 ),
@@ -118,13 +136,36 @@ class _addEventsState extends State<addEvents> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(6.0),
                 child: TextFormField(
-                  controller: _capacite,
+                  controller: _lien,
                   decoration: InputDecoration(
-                      labelText: "Capacité",
+                      labelText: "Lien",
                       border: OutlineInputBorder()),
 
                 ),
               ),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(6.0),
+                child: TextFormField(
+                  controller: _place,
+                  decoration: InputDecoration(
+                      labelText: "Place",
+                      border: OutlineInputBorder()),
+
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(6.0),
+                child: TextFormField(
+                  controller: _region,
+                  decoration: InputDecoration(
+                      labelText: "Région",
+                      border: OutlineInputBorder()),
+
+                ),
+              ),
+
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(6.0),
@@ -183,20 +224,41 @@ class _addEventsState extends State<addEvents> {
                     },
                 ),
               ),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(6.0),
+                child: TextFormField(
+                  controller: _latitude,
+                  decoration: InputDecoration(
+                      labelText: "Latitude (46.201506)",
+                      border: OutlineInputBorder()),
+
+                ),
+              ), Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(6.0),
+                child: TextFormField(
+                  controller: _longitude,
+                  decoration: InputDecoration(
+                      labelText: "Longitude (6.148434)",
+                      border: OutlineInputBorder()),
+
+                ),
+              ),
               SizedBox(height : 10.0),
               MaterialButton(
                 onPressed: () {
+
+
+
+                  db.createEvent(_titre.text, _description.text, _adresse.text, _ville.text
+                      , _tarifs.text, dateDebut.text, dateFin.text, _latitude.text, _longitude.text
+                      , _region.text, _place.text, _lien.text, _infopratique.text, randomNumber.toString());
+
+
                   Navigator.pop(context);
 
-                  print(_titre.text);
-                  print(_description.text);
-                  print(_adresse.text);
-                  print(_ville.text);
-                  print(_categorie.text);
-                  print(_capacite.text);
-                  print(_tarifs.text);
-                  print(dateDebut.text);
-                  print(dateFin.text);
+
 
                 },
                 height: 60,

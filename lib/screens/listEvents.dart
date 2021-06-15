@@ -54,10 +54,13 @@ class _ListEventsState extends State<ListEvents> {
         month = now.month;
         day = now.day;
 
-        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 30 && event.titre != null && event.description != null && event.adresse != null && event.tarif != null)
+        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day  && event.titre != null && event.description != null && event.adresse != null && event.tarif != null)
         {
           compteur ++;
           list.add(event);
+
+          print('Ville : '+event.ville);
+          print('Debut : '+ event.dateDebut);
         }
 
 
@@ -95,7 +98,7 @@ class _ListEventsState extends State<ListEvents> {
     return Scaffold(
       appBar:  AppBar(
         backgroundColor: Colors.black38,
-        title: Text('List events'),
+        title: Text('Liste d''évènements'),
         leading:  IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.white,),
             onPressed: (){

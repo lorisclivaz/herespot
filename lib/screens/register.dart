@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    'Create account to continue',
+                    'Créer un compte pour continuer',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -95,7 +95,7 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     controller: _emailController,
                     validator: (val) =>
-                    val.isNotEmpty ? null : 'Please enter a email address',
+                    val.isNotEmpty ? null : 'Entrer un e-mail',
                     decoration: InputDecoration(
                         hintText: 'Email',
                         prefixIcon: Icon(Icons.mail),
@@ -108,9 +108,9 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     obscureText: true,
                     controller: _passwordController,
-                    validator: (val) => val.length < 6 ? 'Enter more than 6 char' : null,
+                    validator: (val) => val.length < 6 ? 'Entrer plus de 6 charactères' : null,
                     decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: 'Mot de passe',
                         prefixIcon: Icon(Icons.vpn_key),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)
@@ -143,7 +143,7 @@ class _RegisterState extends State<Register> {
                     child: loginProvider.isLoading ? CircularProgressIndicator(
                       valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
                     ) : Text(
-                      'Register',
+                      'S''enregistrer',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -154,10 +154,10 @@ class _RegisterState extends State<Register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Already have an account'),
+                      Text('J''ai déjà un compte'),
                       SizedBox(width: 10,),
                       TextButton(onPressed: () => widget.toggleScreen(),
-                          child: Text('Login'))
+                          child: Text('Se connecter'))
                     ],
                   ),
                   SizedBox(height: 20,),

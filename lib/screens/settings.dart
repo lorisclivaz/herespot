@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings UI'),
+        title: Text('Réglages'),
         backgroundColor: Colors.black38,
         leading:   IconButton(
           icon: Icon(Icons.arrow_back,color: Colors.white,),
@@ -36,10 +36,10 @@ class _SettingsState extends State<Settings> {
         sections: [
 
           SettingsSection(
-            title: 'Account',
+            title: 'Compte',
             tiles: [
               SettingsTile(title: 'Email', leading: Icon(Icons.email)),
-              SettingsTile(title: 'Sign out', leading: Icon(Icons.exit_to_app)
+              SettingsTile(title: 'se déconnecter', leading: Icon(Icons.exit_to_app)
               , onTap: (){
                 loginProvider.logout();
                 },),

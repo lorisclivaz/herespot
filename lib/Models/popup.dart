@@ -18,6 +18,9 @@ class _PopupState extends State<Popup> {
   final Marker _marker;
   final List<EventSpot> _event;
   static String result ="";
+  static String titre = "";
+  static String ville = "";
+
 
   List<EventSpot> detailEvents = [];
 
@@ -72,6 +75,8 @@ class _PopupState extends State<Popup> {
           detailEvents.add(eventDetail);
 
           result = element.ville;
+          titre = element.titre;
+
 
         }
 
@@ -81,13 +86,13 @@ class _PopupState extends State<Popup> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
+        constraints: BoxConstraints(minWidth: 200, maxWidth: 600),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('PopuMarker',
+            Text('${titre}',
               overflow: TextOverflow.fade,
               softWrap: false,
               style: const TextStyle(
@@ -98,7 +103,7 @@ class _PopupState extends State<Popup> {
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
             Text('Position : ${_marker.point.latitude}, ${_marker.point.longitude}',
             style: const TextStyle(fontSize: 12.0),),
-            Text('Marker size : ${result}, ${_marker.height}',
+            Text('Region : ${result}, ${_marker.height}',
             style: const TextStyle(fontSize: 12.0),)
           ],
         ),

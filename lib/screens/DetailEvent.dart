@@ -61,7 +61,7 @@ class _DetailEventState extends State<DetailEvent> {
     return Scaffold(
       appBar:  AppBar(
         backgroundColor: Colors.black38,
-        title: Text('Détail event'),
+        title: Text('Détail évènement'),
         leading:  IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.white,),
             onPressed: (){
@@ -126,6 +126,18 @@ class _DetailEventState extends State<DetailEvent> {
                     padding:
                     const EdgeInsets.only(left: 12, top: 24, bottom: 13),
                     child: Text(
+                      'Adresse : ',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withOpacity(.8)),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
+                    child: Text(
                       '${adresse}',
                       style: TextStyle(
                           fontSize: 15,
@@ -149,6 +161,18 @@ class _DetailEventState extends State<DetailEvent> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
+                    child: Text(
+                      'Description :',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withOpacity(.8)),
+                    ),
+                  ),
                   Padding(
                     padding:
                     const EdgeInsets.only(left: 12, top: 24, bottom: 13),
@@ -180,6 +204,18 @@ class _DetailEventState extends State<DetailEvent> {
                     padding:
                     const EdgeInsets.only(left: 12, top: 24, bottom: 13),
                     child: Text(
+                      'Tarif :',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withOpacity(.8)),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
+                    child: Text(
                       '${tarif}',
                       style: TextStyle(
                           fontSize: 15,
@@ -191,6 +227,7 @@ class _DetailEventState extends State<DetailEvent> {
 
               ),
             ),
+            SizedBox(height: 50,),
             MaterialButton(
               onPressed: () async{
 

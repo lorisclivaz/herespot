@@ -9,6 +9,8 @@ import 'package:latlong/latlong.dart';
 import 'package:herespot/Models/popup.dart';
 import 'package:herespot/screens/listEvents.dart';
 import 'package:herespot/screens/addEvents.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 
 
@@ -17,6 +19,7 @@ class HomeScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Marker Popup Demo',
       theme: ThemeData(primarySwatch: Colors.blueGrey),
       home: MapPageScaffold(PopupSnap.markerTop),
@@ -38,7 +41,7 @@ class MapPageScaffold extends StatelessWidget {
       appBar:  AppBar(
 
         backgroundColor: Colors.black38,
-        title: Text('Test Market'),
+        title: Text('HereSpot'),
         centerTitle: true,
         elevation: 0.0,
         // actions
@@ -56,7 +59,7 @@ class MapPageScaffold extends StatelessWidget {
                 backgroundColor: Colors.white,
               ),
               // 다른 계정
-              accountName: Text('zodlab'),
+              accountName: Text('lorisclivaz@hotmail.com'),
               accountEmail: Text(''),
               decoration: BoxDecoration(
                 color: Colors.black38,
@@ -68,7 +71,7 @@ class MapPageScaffold extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.home, color: Colors.grey[800],),
-              title: Text('List events'),
+              title: Text('Liste évènements'),
               onTap: (){
                 Navigator.of(context).push(
                     MaterialPageRoute(
@@ -80,7 +83,7 @@ class MapPageScaffold extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.settings, color: Colors.grey[800],),
-              title: Text('Setting'),
+              title: Text('Réglages'),
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Settings(),
@@ -91,7 +94,7 @@ class MapPageScaffold extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.question_answer, color: Colors.grey[800],),
-              title: Text('add events'),
+              title: Text('Ajouter un évènement'),
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => addEvents(),)
@@ -117,7 +120,7 @@ class MapPageScaffold extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: kToolbarHeight),
         child: FloatingActionButton.extended(
-          label: Text(_isFirstSnap ? 'Load events' : 'Load events'),
+          label: Text(_isFirstSnap ? 'Charger les events' : 'Charger les events'),
           onPressed: () {
             final newSnap =
             _isFirstSnap ? PopupSnap.mapBottom : PopupSnap.markerTop;
@@ -173,11 +176,18 @@ class _MapPageState extends State<MapPage> {
 
   int compteur = 0;
 
+  Position _currentPosition;
+  String _currentAddress;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+
+
+
+
   @override
   void initState() {
     super.initState();
-
-
+    _getCurrentLocation();
 
     //Récupération des events
     fb.once().then((DataSnapshot snap) {
@@ -201,7 +211,7 @@ class _MapPageState extends State<MapPage> {
         month = now.month;
         day = now.day;
 
-        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day && compteur < 100)
+        if(eventYearConv == year && eventMonthConv >= month && eventDayConv >= day && compteur < 100 && event.titre != null)
           {
 
             _points.add(cord);
@@ -232,12 +242,40 @@ class _MapPageState extends State<MapPage> {
         .toList();
   }
 
+  _getCurrentLocation() {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+      Placemark place = p[0];
+      setState(() {
+        _currentAddress =
+        "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
+
+
     return FlutterMap(
       options: MapOptions(
         zoom: 11.0,
-        center: new LatLng(46.201506, 6.148434),
+        center: new LatLng(46.171614, 7.422938),
         plugins: [PopupMarkerPlugin()],
         onTap: (_) => _popupLayerController
             .hidePopup(), // Hide popup when the map is tapped.
