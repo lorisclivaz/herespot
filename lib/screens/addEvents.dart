@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herespot/database/database.dart';
@@ -33,14 +33,17 @@ class _addEventsState extends State<addEvents> {
 
   Database db = new Database();
 
+
+
+
   @override
   Widget build(BuildContext context) {
+
 
     var rng = new Random();
     int max = 100000000;
     int min = 81000000;
     randomNumber = min + rng.nextInt(max - min);
-    print(randomNumber);
 
     return Scaffold(
       appBar: AppBar(
@@ -224,36 +227,25 @@ class _addEventsState extends State<addEvents> {
                     },
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _latitude,
-                  decoration: InputDecoration(
-                      labelText: "Latitude (46.201506)",
-                      border: OutlineInputBorder()),
 
-                ),
-              ), Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _longitude,
-                  decoration: InputDecoration(
-                      labelText: "Longitude (6.148434)",
-                      border: OutlineInputBorder()),
-
-                ),
-              ),
               SizedBox(height : 10.0),
               MaterialButton(
-                onPressed: () {
+                onPressed: () async {
 
+                  List<Location> location = await locationFromAddress("${_adresse.text}, ${_ville.text}");
+
+                  print('Longitude : '+location[0].longitude.toString());
+                  print('Latitude : '+location[0].latitude.toString());
+
+                  _latitude.text = location[0].latitude.toString();
+                  _longitude.text = location[0].longitude.toString();
 
 
                   db.createEvent(_titre.text, _description.text, _adresse.text, _ville.text
                       , _tarifs.text, dateDebut.text, dateFin.text, _latitude.text, _longitude.text
                       , _region.text, _place.text, _lien.text, _infopratique.text, randomNumber.toString());
+
+
 
 
                   Navigator.pop(context);

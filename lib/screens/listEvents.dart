@@ -153,7 +153,7 @@ class _ListEventsState extends State<ListEvents> {
                                 height: 20.0,
                               ),
                               Text(
-                                "Début : ${list[i].dateDebut}            Fin: ${list[i].dateFin}       Ville: ${list[i].ville}  ",
+                                "Début : ${list[i].titre} ",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               new SizedBox(
@@ -163,6 +163,13 @@ class _ListEventsState extends State<ListEvents> {
                                 "${list[i].adresse}",
                                 style: TextStyle(
                                     color: Colors.grey, fontSize: 15.0),
+                              ),
+                              new SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "Début : ${list[i].dateDebut}            Fin: ${list[i].dateFin}       Ville: ${list[i].ville}  ",
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
