@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                               'assets/herespot.png'),
                           fit: BoxFit.fill,
                         ),
-                        shape: BoxShape.circle,
+
                       ),
                     ),
                   ),

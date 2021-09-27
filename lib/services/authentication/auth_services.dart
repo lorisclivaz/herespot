@@ -10,6 +10,7 @@ class AuthServices with ChangeNotifier{
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  String email;
 
 
 

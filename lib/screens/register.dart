@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
                               'assets/herespot.png'),
                           fit: BoxFit.fill,
                         ),
-                        shape: BoxShape.circle,
+
                       ),
                     ),
                   ),

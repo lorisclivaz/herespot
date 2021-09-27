@@ -75,7 +75,6 @@ class _addEventsState extends State<addEvents> {
                           'assets/herespot.png'),
                       fit: BoxFit.fill,
                     ),
-                    shape: BoxShape.circle,
                   ),
                 ),
               ),
