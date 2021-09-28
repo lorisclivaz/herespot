@@ -47,7 +47,7 @@ class _addEventsState extends State<addEvents> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         title: Text('Ajouter un évènement'),
         centerTitle: true,
         elevation: 0.0,
@@ -123,39 +123,7 @@ class _addEventsState extends State<addEvents> {
 
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _infopratique,
-                  decoration: InputDecoration(
-                      labelText: "Info pratique",
-                      border: OutlineInputBorder()),
 
-                ),
-              ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _lien,
-                  decoration: InputDecoration(
-                      labelText: "Lien",
-                      border: OutlineInputBorder()),
-
-                ),
-              ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _place,
-                  decoration: InputDecoration(
-                      labelText: "Place",
-                      border: OutlineInputBorder()),
-
-                ),
-              ),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(6.0),
@@ -163,18 +131,6 @@ class _addEventsState extends State<addEvents> {
                   controller: _region,
                   decoration: InputDecoration(
                       labelText: "Région",
-                      border: OutlineInputBorder()),
-
-                ),
-              ),
-
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(6.0),
-                child: TextFormField(
-                  controller: _tarifs,
-                  decoration: InputDecoration(
-                      labelText: "Tarif",
                       border: OutlineInputBorder()),
 
                 ),
@@ -241,8 +197,8 @@ class _addEventsState extends State<addEvents> {
 
 
                   db.createEvent(_titre.text, _description.text, _adresse.text, _ville.text
-                      , _tarifs.text, dateDebut.text, dateFin.text, _latitude.text, _longitude.text
-                      , _region.text, _place.text, _lien.text, _infopratique.text, randomNumber.toString());
+                      , dateDebut.text, dateFin.text, _latitude.text, _longitude.text
+                      , _region.text, randomNumber.toString());
 
 
 

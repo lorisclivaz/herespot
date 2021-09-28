@@ -39,7 +39,7 @@ class _ListEventsState extends State<ListEvents> {
       var data = snap.value;
       list.clear();
       data.forEach((value) {
-        EventSpot event = new EventSpot(lien:value['Lien'] ,uid:value['uid'] ,adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'],dateDebut:value['Date début'] , ville: value['Ville'],tarif: value['Tarif'], description: value['Description'], titre: value['Titre'],image: value['Image']);
+        EventSpot event = new EventSpot(uid:value['uid'] ,adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'],dateDebut:value['Date début'] , ville: value['Ville'], description: value['Description'], titre: value['Titre']);
 
         String eventYear = event.dateFin.substring(6,10);
         String eventMonth = event.dateFin.substring(3,5);
@@ -54,7 +54,7 @@ class _ListEventsState extends State<ListEvents> {
         month = now.month;
         day = now.day;
 
-        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day  && event.titre != null && event.description != null && event.adresse != null && event.tarif != null)
+        if(eventYearConv >= year && eventMonthConv >= month && eventDayConv >= day  && event.titre != null && event.description != null && event.adresse != null )
         {
           compteur ++;
           list.add(event);
@@ -97,7 +97,7 @@ class _ListEventsState extends State<ListEvents> {
 
     return Scaffold(
       appBar:  AppBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         title: Text('Liste d''évènements'),
         leading:  IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.white,),
@@ -136,7 +136,7 @@ class _ListEventsState extends State<ListEvents> {
                             MaterialPageRoute(
                               builder: (context) =>
                                   DetailEvent(list[i].uid, list[i].description, list[i].adresse, list[i].dateDebut
-                                  , list[i].dateFin, list[i].tarif, list[i].place, list[i].titre, list[i].lien),
+                                  , list[i].dateFin, list[i].titre),
                               ),);
 
 

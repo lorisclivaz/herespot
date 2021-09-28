@@ -51,7 +51,7 @@ class MapPageScaffold extends StatelessWidget {
     return Scaffold(
       appBar:  AppBar(
 
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         title: Text('HereSpot'),
         centerTitle: true,
         elevation: 0.0,
@@ -73,7 +73,7 @@ class MapPageScaffold extends StatelessWidget {
               accountName: Text(email.toString()),
 
               decoration: BoxDecoration(
-                color: Colors.black38,
+                color: Colors.black,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40.0),
                   bottomRight: Radius.circular(40.0),
@@ -135,7 +135,7 @@ class MapPageScaffold extends StatelessWidget {
           onPressed: () {
 
             final newSnap =
-            _isFirstSnap ? PopupSnap.mapBottom : PopupSnap.markerTop;
+            _isFirstSnap ? PopupSnap.markerTop : PopupSnap.markerTop;
             Navigator.pushReplacement(
               context,
               PageRouteBuilder(
@@ -145,7 +145,7 @@ class MapPageScaffold extends StatelessWidget {
           },
           icon: Icon(
               _isFirstSnap ? Icons.vertical_align_bottom_rounded : Icons.vertical_align_bottom_rounded),
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.black,
         ),
       ),
     );
@@ -206,18 +206,14 @@ class _MapPageState extends State<MapPage> {
       var data = snap.value;
       list.clear();
       data.forEach((key,value) {
-        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'], ville: value['Ville'],tarif: value['Tarif'], description: value['Description'], titre: value['Titre']);
+        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'], ville: value['Ville'],description: value['Description'], titre: value['Titre']);
 
         LatLng cord = new LatLng(double.parse(value['lat'].toString()), double.parse(value['lon'].toString()));
-
-
 
 
             _points.add(cord);
             compteur ++;
             list.add(event);
-            print(list.length);
-
 
 
       });

@@ -69,7 +69,7 @@ class _PopupState extends State<Popup> {
         {
           print( 'Name : ${element.ville}  ${element.dateFin}   ');
 
-          EventSpot eventDetail = new EventSpot(titre: element.titre, description: element.description, tarif: element.tarif, adresse: element.adresse, ville: element.ville, dateFin: element.dateFin, long: element.long
+          EventSpot eventDetail = new EventSpot(titre: element.titre, description: element.description,adresse: element.adresse, ville: element.ville, dateFin: element.dateFin, long: element.long
           , lat: element.lat);
 
           detailEvents.add(eventDetail);

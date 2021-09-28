@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herespot/screens/updatePassword.dart';
 import 'package:herespot/services/authentication/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -21,7 +22,7 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Réglages'),
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         leading:   IconButton(
           icon: Icon(Icons.arrow_back,color: Colors.white,),
           onPressed: (){
@@ -38,7 +39,16 @@ class _SettingsState extends State<Settings> {
           SettingsSection(
             title: 'Compte',
             tiles: [
-              SettingsTile(title: 'Email', leading: Icon(Icons.email)),
+              SettingsTile(title: 'Mot de passe', leading: Icon(Icons.security),
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UpdatePassword(),)
+                  );
+                },
+
+              ),
+
+
               SettingsTile(title: 'se déconnecter', leading: Icon(Icons.exit_to_app)
               , onTap: (){
                 loginProvider.logout();

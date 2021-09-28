@@ -33,8 +33,8 @@ class Database{
 
 
   //Méthode permettant de créer un évènement
-  Future<String> createEvent(String titre, String description, String adresse, String ville, String tarif, String debut,
-      String fin, String lat, String long, String region, String place, String lien, String infopratique, String uid) async {
+  Future<String> createEvent(String titre, String description, String adresse, String ville, String debut,
+      String fin, String lat, String long, String region, String uid) async {
 
     var event = <String, dynamic>{
       'Titre':titre,
@@ -42,10 +42,6 @@ class Database{
       'Adresse':adresse,
       'Date de fin' : fin,
       'Date début': debut,
-      'Informations pratiques': infopratique,
-      'Lien': lien,
-      'Place': place,
-      'Tarif': tarif,
       'Région': region,
       'Ville': ville,
       'lat': lat,

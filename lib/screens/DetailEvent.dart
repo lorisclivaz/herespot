@@ -11,12 +11,9 @@ class DetailEvent extends StatefulWidget {
   final String adresse;
   final String dateDebut;
   final String dateFin;
-  final String tarif;
-  final String place;
   final String titre;
-  final String lien;
 
-  DetailEvent(this.uid, this.description, this.adresse, this.dateDebut, this.dateFin, this.tarif, this.place, this.titre, this.lien);
+  DetailEvent(this.uid, this.description, this.adresse, this.dateDebut, this.dateFin, this.titre);
 
   @override
   _DetailEventState createState() => _DetailEventState();
@@ -30,10 +27,7 @@ class _DetailEventState extends State<DetailEvent> {
    String adresse;
    String dateDebut;
    String dateFin;
-   String tarif;
-   String place;
    String titre;
-   String lien;
 
   @override
   void initState() {
@@ -44,14 +38,9 @@ class _DetailEventState extends State<DetailEvent> {
  adresse = widget.adresse;
  dateDebut = widget.dateDebut;
  dateFin = widget.dateFin;
- tarif = widget.tarif;
- place = widget.place;
  titre = widget.titre;
- lien = widget.lien;
-
 
   }
-
 
 
   @override
@@ -212,45 +201,12 @@ class _DetailEventState extends State<DetailEvent> {
                           color: Colors.black.withOpacity(.8)),
                     ),
                   ),
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
-                    child: Text(
-                      '${tarif}',
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(.8)),
-                    ),
-                  ),
+
                 ],
 
               ),
             ),
             SizedBox(height: 50,),
-            MaterialButton(
-              onPressed: () async{
-
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        WebViewScreen(lien),
-                  ),);
-              },
-              height: 60,
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child:  Text(
-                'Inscription',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           ],
 
         ),

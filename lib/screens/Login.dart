@@ -47,6 +47,7 @@ class _LoginState extends State<Login> {
     final loginProvider = Provider.of<AuthServices>(context);
 
     return Scaffold(
+      backgroundColor: Colors.black12,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -63,6 +64,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 20,),
 
                   Container(
+                    color: Colors.white,
                     alignment: Alignment.center,
                     child: Container(
                       height: 200.0,
@@ -87,6 +89,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white
                         ),
                       ),
                     ],
@@ -96,24 +99,42 @@ class _LoginState extends State<Login> {
                     'se connecter pour continuer',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 30,),
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
                     controller: _emailController,
                     validator: (val) =>
                       val.isNotEmpty ? null : 'Entrer votre adresse e-mail',
                     decoration: InputDecoration(
+                      fillColor: Colors.white,
                       hintText: 'E-mail',
                       prefixIcon: Icon(Icons.mail),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      )
+
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.white
+                        )
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2.0
+                        )
+                          )
                     ),
                   ),
                   SizedBox(height: 30,),
                   TextFormField(
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
                     obscureText: true,
                     controller: _passwordController,
                     validator: (val) => val.length < 6 ? 'Entrer plus de 6 charactères' : null,
@@ -161,7 +182,10 @@ class _LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Je n''ai pas de compte'),
+                      Text('Je n''ai pas de compte',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),),
                       SizedBox(width: 10,),
                       TextButton(onPressed: () => widget.toggleScreen(),
                           child: Text('S''enregistrer'))
