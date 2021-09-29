@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:herespot/screens/updatePassword.dart';
 import 'package:provider/provider.dart';
 import 'package:herespot/services/authentication/auth_services.dart';
 
@@ -47,7 +48,7 @@ class _LoginState extends State<Login> {
     final loginProvider = Provider.of<AuthServices>(context);
 
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -105,13 +106,13 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 30,),
                   TextFormField(
                     style: TextStyle(
-                      color: Colors.white
+                      color: Colors.black
                     ),
                     controller: _emailController,
                     validator: (val) =>
                       val.isNotEmpty ? null : 'Entrer votre adresse e-mail',
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      fillColor: Colors.black,
                       hintText: 'E-mail',
                       prefixIcon: Icon(Icons.mail),
                       border: OutlineInputBorder(
@@ -121,19 +122,13 @@ class _LoginState extends State<Login> {
                           color: Colors.white
                         )
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 2.0
-                        )
-                          )
+
                     ),
                   ),
                   SizedBox(height: 30,),
                   TextFormField(
                     style: TextStyle(
-                        color: Colors.white
+                        color: Colors.black
                     ),
                     obscureText: true,
                     controller: _passwordController,
@@ -182,11 +177,15 @@ class _LoginState extends State<Login> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Je n''ai pas de compte',
-                      style: TextStyle(
-                        color: Colors.white
-                      ),),
+                      TextButton(onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => UpdatePassword(),)
+                        );
+                      },
+                          child: Text('J''ai oublié mon mot de passe'),
+                      ),
                       SizedBox(width: 10,),
+
                       TextButton(onPressed: () => widget.toggleScreen(),
                           child: Text('S''enregistrer'))
                     ],

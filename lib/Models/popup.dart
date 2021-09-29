@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:herespot/Models/events.dart';
+import 'package:herespot/screens/DetailEvent.dart';
 
 class Popup extends StatefulWidget {
   final Marker marker;
@@ -17,9 +18,14 @@ class _PopupState extends State<Popup> {
 
   final Marker _marker;
   final List<EventSpot> _event;
-  static String result ="";
-  static String titre = "";
-  static String ville = "";
+  static String region =" ";
+  static String titre = " ";
+  static String ville = " ";
+  static String dateDebut = " ";
+  static String dateFin = ' ';
+  static String uid = '';
+  static String description = '';
+  static String adresse = ' ';
 
 
   List<EventSpot> detailEvents = [];
@@ -36,21 +42,27 @@ class _PopupState extends State<Popup> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 40, right: 10),
-              child: Icon(_icons[_currentIcon]),
-            ),
-            _cardDescription(context),
-          ],
+    return Container(
+      child: Card(
+        color: Colors.black12,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0)
         ),
-        onTap: () => setState((){
-          _currentIcon = (_currentIcon + 1) % _icons.length;
-        }),
+        child: InkWell(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 40, right: 10),
+                child: Icon(_icons[_currentIcon]),
+              ),
+              _cardDescription(context),
+            ],
+          ),
+          onTap: () => setState((){
+            _currentIcon = (_currentIcon + 1) % _icons.length;
+          }),
+        ),
       ),
     );
   }
@@ -58,7 +70,6 @@ class _PopupState extends State<Popup> {
 
   Widget _cardDescription(BuildContext context)
   {
-    print(_event.length);
 
     _event.forEach((element) {
 
@@ -67,24 +78,30 @@ class _PopupState extends State<Popup> {
 
       if(lat == _marker.point.latitude && long == _marker.point.longitude)
         {
-          print( 'Name : ${element.ville}  ${element.dateFin}   ');
-
           EventSpot eventDetail = new EventSpot(titre: element.titre, description: element.description,adresse: element.adresse, ville: element.ville, dateFin: element.dateFin, long: element.long
           , lat: element.lat);
 
-          detailEvents.add(eventDetail);
+          //detailEvents.add(eventDetail);
 
-          result = element.ville;
+          ville = element.ville;
           titre = element.titre;
+          dateDebut = element.dateDebut;
+          uid = element.uid;
+          description = element.description;
+          adresse = element.adresse;
+          dateFin = element.dateFin;
+          region = element.region;
+
+          print(ville+"  " + titre+"  " + dateDebut+"  " + uid +" "+ region);
+
 
 
         }
 
     });
 
-    print('List :  ${detailEvents.length}');
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       child: Container(
         constraints: BoxConstraints(minWidth: 200, maxWidth: 600),
         child: Column(
@@ -96,15 +113,43 @@ class _PopupState extends State<Popup> {
               overflow: TextOverflow.fade,
               softWrap: false,
               style: const TextStyle(
+                color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 14.0
+                  fontSize: 20.0
+
+
               ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
-            Text('Position : ${_marker.point.latitude}, ${_marker.point.longitude}',
-            style: const TextStyle(fontSize: 12.0),),
-            Text('Region : ${result}, ${_marker.height}',
-            style: const TextStyle(fontSize: 12.0),)
+            Text('Date de début : ${dateDebut}',
+            style: const TextStyle(fontSize: 15.0, color: Colors.white),),
+            SizedBox(height: 10.0,),
+            Text('Ville : ${ville}',
+            style: const TextStyle(fontSize: 15.0, color: Colors.white),),
+            SizedBox(height: 20.0,),
+            MaterialButton(
+              onPressed: ()  {
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailEvent(uid, description, adresse, dateDebut, dateFin, titre, region,ville),
+                    ));
+
+              },
+              height: 40,
+              color: Colors.black,
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                'Detail évènement',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),

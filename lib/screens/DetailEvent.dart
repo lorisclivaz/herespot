@@ -12,8 +12,10 @@ class DetailEvent extends StatefulWidget {
   final String dateDebut;
   final String dateFin;
   final String titre;
+  final String region;
+  final String ville;
 
-  DetailEvent(this.uid, this.description, this.adresse, this.dateDebut, this.dateFin, this.titre);
+  DetailEvent(this.uid, this.description, this.adresse, this.dateDebut, this.dateFin, this.titre, this.region, this.ville);
 
   @override
   _DetailEventState createState() => _DetailEventState();
@@ -28,6 +30,8 @@ class _DetailEventState extends State<DetailEvent> {
    String dateDebut;
    String dateFin;
    String titre;
+   String region;
+   String ville;
 
   @override
   void initState() {
@@ -39,6 +43,10 @@ class _DetailEventState extends State<DetailEvent> {
  dateDebut = widget.dateDebut;
  dateFin = widget.dateFin;
  titre = widget.titre;
+ region = widget.region;
+ ville = widget.ville;
+
+ print(ville);
 
   }
 
@@ -49,7 +57,7 @@ class _DetailEventState extends State<DetailEvent> {
 
     return Scaffold(
       appBar:  AppBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         title: Text('Détail évènement'),
         leading:  IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.white,),
@@ -62,6 +70,7 @@ class _DetailEventState extends State<DetailEvent> {
       ),
 
       body: SingleChildScrollView(
+
         child: Column(
           children: [
             SizedBox(height: 10.0,),
@@ -81,16 +90,79 @@ class _DetailEventState extends State<DetailEvent> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            '${titre}',
-                            style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black.withOpacity(.8)),
+                          Center(
+                            child: Text(
+                              '${titre}',
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black.withOpacity(.8)),
+                            ),
                           ),
+                          SizedBox(height: 40.0,),
                           Text(
                             ' Début : ${dateDebut}            fin : ${dateFin}',
                             style: TextStyle(color: Colors.grey, fontSize: 17),
+                          ),
+                          SizedBox(height: 15.0,),
+                          Text(
+                            ' Région : ${region} ',
+                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                          ),
+
+                          SizedBox(height: 15.0,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                height: 60.0,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.black12,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 20.0,
+                                      )
+                                    ]),
+                                child: Center(
+                                  child: Text(
+                                    ' Région : ${region} ',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Container(
+                                height: 60.0,
+                                width: 150.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    color: Colors.black12,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        offset: Offset(0, 2),
+                                        blurRadius: 20.0,
+                                      )
+                                    ]),
+                                child: Center(
+                                  child: Text(
+                                    'Ville : ${ville}',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -118,7 +190,7 @@ class _DetailEventState extends State<DetailEvent> {
                       'Adresse : ',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                          fontSize: 15,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(.8)),
                     ),
@@ -157,7 +229,7 @@ class _DetailEventState extends State<DetailEvent> {
                       'Description :',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                          fontSize: 15,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                           color: Colors.black.withOpacity(.8)),
                     ),
@@ -178,34 +250,7 @@ class _DetailEventState extends State<DetailEvent> {
               ),
             ),
             SizedBox(height: 5.0,),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.withOpacity(.3)),
-                  )
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
-                    child: Text(
-                      'Tarif :',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(.8)),
-                    ),
-                  ),
 
-                ],
-
-              ),
-            ),
             SizedBox(height: 50,),
           ],
 

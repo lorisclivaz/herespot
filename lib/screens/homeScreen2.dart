@@ -9,7 +9,6 @@ import 'package:herespot/screens/settings.dart';
 import 'package:herespot/services/userInfo/UserInfo.dart';
 import 'package:latlong/latlong.dart';
 import 'package:herespot/Models/popup.dart';
-import 'package:herespot/screens/listEvents.dart';
 import 'package:herespot/screens/addEvents.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -59,60 +58,70 @@ class MapPageScaffold extends StatelessWidget {
 
 
       ),
-      drawer: Drawer(
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.black12,
+          brightness: Brightness.light
+        ),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              // 현재 계정
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/avatar.png'),
-                backgroundColor: Colors.white,
-              ),
-              // 다른 계정
-              accountName: Text(email.toString()),
+            Container(
+              child: UserAccountsDrawerHeader(
+                // 현재 계정
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage('assets/avatar.png'),
+                  backgroundColor: Colors.white,
+                ),
+                // 다른 계정
+                accountName: Text(email.toString()),
 
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.0),
-                  bottomRight: Radius.circular(40.0),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40.0),
+                    bottomRight: Radius.circular(40.0),
+                  ),
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.home, color: Colors.grey[800],),
-              title: Text('Liste évènements'),
-              onTap: (){
-                Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ListEvents(),
-                    ));
-              },
-              trailing: Icon(Icons.add),
+            Container(
+              color: Colors.black12,
+              child: Column(
+                children: [
+                  ListTile(
+                  leading: Icon(Icons.home, color: Colors.white,),
+                  title: Text('Liste évènements',style: TextStyle(color: Colors.white),),
+                  onTap: (){
+
+                  },
+                  trailing: Icon(Icons.add, color: Colors.white,),
+                ),
+                  ListTile(
+                    leading: Icon(Icons.settings, color: Colors.white,),
+                    title: Text('Réglages', style: TextStyle(color: Colors.white),),
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Settings(),
+                      )
+                      );
+                    },
+                    trailing: Icon(Icons.add, color: Colors.white,),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.question_answer, color: Colors.white,),
+                    title: Text('Ajouter un évènement', style: TextStyle(color: Colors.white),),
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => addEvents(),)
+                      );
+                    },
+                    trailing: Icon(Icons.add, color: Colors.white,),
+                  ),
+                ]
+              ),
             ),
-            ListTile(
-              leading: Icon(Icons.settings, color: Colors.grey[800],),
-              title: Text('Réglages'),
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Settings(),
-                )
-                );
-              },
-              trailing: Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(Icons.question_answer, color: Colors.grey[800],),
-              title: Text('Ajouter un évènement'),
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => addEvents(),)
-                );
-              },
-              trailing: Icon(Icons.add),
-            ),
+
           ],
         ),
       ),
@@ -131,7 +140,7 @@ class MapPageScaffold extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: kToolbarHeight),
         child: FloatingActionButton.extended(
-          label: Text(_isFirstSnap ? 'Charger les events' : 'Charger les events'),
+          label: Text(_isFirstSnap ? 'Charger les évènements' : 'Charger les évènements'),
           onPressed: () {
 
             final newSnap =
@@ -195,6 +204,14 @@ class _MapPageState extends State<MapPage> {
 
 
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    list.clear();
+
+  }
 
   @override
   void initState() {
@@ -206,7 +223,7 @@ class _MapPageState extends State<MapPage> {
       var data = snap.value;
       list.clear();
       data.forEach((key,value) {
-        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'], ville: value['Ville'],description: value['Description'], titre: value['Titre']);
+        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'],dateDebut: value['Date debut'], ville: value['Ville'],description: value['Description'], titre: value['Titre'], uid: value['uid'],region: value['Région']);
 
         LatLng cord = new LatLng(double.parse(value['lat'].toString()), double.parse(value['lon'].toString()));
 
@@ -237,6 +254,8 @@ class _MapPageState extends State<MapPage> {
     )
         .toList();
   }
+
+
 
   _getCurrentLocation() {
     geolocator
