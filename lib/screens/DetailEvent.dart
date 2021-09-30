@@ -105,11 +105,6 @@ class _DetailEventState extends State<DetailEvent> {
                             style: TextStyle(color: Colors.grey, fontSize: 17),
                           ),
                           SizedBox(height: 15.0,),
-                          Text(
-                            ' Région : ${region} ',
-                            style: TextStyle(color: Colors.grey, fontSize: 17),
-                          ),
-
                           SizedBox(height: 15.0,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -183,18 +178,15 @@ class _DetailEventState extends State<DetailEvent> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
-                    child: Text(
-                      'Adresse : ',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(.8)),
+                  SizedBox(height: 20,),
+                  Center(
+                    child: FloatingActionButton.extended(
+                      label: Text('Adresse et N° :'),
+
+                      backgroundColor: Colors.black,
                     ),
                   ),
+
                   Padding(
                     padding:
                     const EdgeInsets.only(left: 12, top: 24, bottom: 13),
@@ -222,16 +214,11 @@ class _DetailEventState extends State<DetailEvent> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(left: 12, top: 24, bottom: 13),
-                    child: Text(
-                      'Description :',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(.8)),
+                  SizedBox(height: 20,),
+                  Center(
+                    child: FloatingActionButton.extended(
+                      label: Text('Description de l''évènement :'),
+                      backgroundColor: Colors.black,
                     ),
                   ),
                   Padding(

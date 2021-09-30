@@ -3,6 +3,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:herespot/database/database.dart';
+import 'package:herespot/screens/homeScreen.dart';
+import 'package:herespot/screens/homeScreen2.dart';
 
 
 class addEvents extends StatefulWidget {
@@ -54,7 +56,8 @@ class _addEventsState extends State<addEvents> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.white,),
             onPressed: (){
-              Navigator.pop(context);
+              Navigator.pushReplacement( context, MaterialPageRoute( builder: (context) => HomeScreen()), ).then((value) => setState(() {}));
+
             }
         ),
         // actions
@@ -203,7 +206,9 @@ class _addEventsState extends State<addEvents> {
 
 
 
-                  Navigator.pop(context);
+                  Navigator.pushReplacement( context, MaterialPageRoute( builder: (context) => HomeScreen2()), ).then((value) => setState(() {}));
+
+
 
 
 

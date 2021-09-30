@@ -6,16 +6,15 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:herespot/Models/events.dart';
 import 'package:herespot/screens/settings.dart';
+import 'package:herespot/services/authentication/auth_services.dart';
 import 'package:herespot/services/userInfo/UserInfo.dart';
 import 'package:latlong/latlong.dart';
 import 'package:herespot/Models/popup.dart';
 import 'package:herespot/screens/addEvents.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
-
-
-
-class HomeScreen2 extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   // This widget is the root of your application.
 
   @override
@@ -29,24 +28,46 @@ class HomeScreen2 extends StatelessWidget {
   }
 }
 
-class MapPageScaffold extends StatelessWidget {
+
+class MapPageScaffold extends StatefulWidget {
+
   final PopupSnap popupSnap;
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  String email;
+
 
   MapPageScaffold(this.popupSnap);
 
+  @override
+  _MapPageScaffoldState createState() => _MapPageScaffoldState();
+}
 
+class _MapPageScaffoldState extends State<MapPageScaffold> {
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  String email;
 
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<AuthServices>(context);
     final User user = auth.currentUser;
 
     email =  user.email;
     print("User email "+ email);
-
 
     return Scaffold(
       appBar:  AppBar(
@@ -61,8 +82,8 @@ class MapPageScaffold extends StatelessWidget {
       ),
       drawer: Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors.black12,
-          brightness: Brightness.light
+            canvasColor: Colors.black12,
+            brightness: Brightness.light
         ),
         child: ListView(
           padding: EdgeInsets.zero,
@@ -88,51 +109,75 @@ class MapPageScaffold extends StatelessWidget {
             ),
             Container(
               color: Colors.black12,
-              child: Column(
-                children: [
-                  ListTile(
-                  leading: Icon(Icons.home, color: Colors.white,),
-                  title: Text('Liste évènements',style: TextStyle(color: Colors.white),),
-                  onTap: (){
+              margin: EdgeInsets.only(top: 20),
+              child: Wrap(
+                  spacing: 10, // to apply margin horizontally
+                  runSpacing: 10, // to apply margin vertically
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.home, color: Colors.white,),
+                      title: Text('Liste évènements',style: TextStyle(color: Colors.white),),
+                      onTap: (){
 
-                  },
-                  trailing: Icon(Icons.add, color: Colors.white,),
-                ),
-                  ListTile(
-                    leading: Icon(Icons.settings, color: Colors.white,),
-                    title: Text('Réglages', style: TextStyle(color: Colors.white),),
-                    onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Settings(),
-                      )
-                      );
-                    },
-                    trailing: Icon(Icons.add, color: Colors.white,),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.question_answer, color: Colors.white,),
-                    title: Text('Ajouter un évènement', style: TextStyle(color: Colors.white),),
-                    onTap: (){
+                      },
+                      trailing: Icon(Icons.add, color: Colors.white,),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.settings, color: Colors.white,),
+                      title: Text('Réglages', style: TextStyle(color: Colors.white),),
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Settings(),
+                        )
+                        );
+                      },
+                      trailing: Icon(Icons.add, color: Colors.white,),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.question_answer, color: Colors.white,),
+                      title: Text('Ajouter un évènement', style: TextStyle(color: Colors.white),),
+                      onTap: (){
 
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => addEvents(),)
-                      );
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => addEvents(),)
+                        );
 
-                    },
-                    trailing: Icon(Icons.add, color: Colors.white,),
-                  ),
-                ]
+                      },
+                      trailing: Icon(Icons.add, color: Colors.white,),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.description, color: Colors.white,),
+                      title: Text('Mention juridique', style: TextStyle(color: Colors.white),),
+                      onTap: (){
+
+
+                      },
+                      trailing: Icon(Icons.add, color: Colors.white,),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.logout, color: Colors.red,),
+                      title: Text('Déconnexion', style: TextStyle(color: Colors.white),),
+                      onTap: (){
+
+                        loginProvider.logout();
+
+
+                      },
+                    ),
+                  ]
               ),
             ),
 
           ],
         ),
       ),
-      body: MapPage(popupSnap),
-      floatingActionButton: _buttonToSwitchSnap(context),
+      body: MapPage(widget.popupSnap),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: _buttonToSwitchSnap(context),
     );
   }
+
+
 
   Widget _buttonToSwitchSnap(BuildContext context) {
     /// Note this plugin doesn't currently support changing the snap type
@@ -163,7 +208,11 @@ class MapPageScaffold extends StatelessWidget {
     );
   }
 
-  bool get _isFirstSnap => popupSnap == PopupSnap.markerTop;
+
+
+
+
+  bool get _isFirstSnap => widget.popupSnap == PopupSnap.markerTop;
 }
 
 class MapPage extends StatefulWidget {
@@ -178,9 +227,6 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   static final List<LatLng> _points = [
-
-
-
   ];
 
   static const _markerSize = 40.0;
@@ -192,20 +238,20 @@ class _MapPageState extends State<MapPage> {
   int day;
 
 
-
   /// Used to trigger showing/hiding of popups.
   final PopupController _popupLayerController = PopupController();
 
-  final fb = FirebaseDatabase.instance.reference().child('Properties').orderByKey();
+  final fb = FirebaseDatabase.instance.reference()
+      .child('Properties')
+      .orderByKey();
   List<EventSpot> list = List();
 
   int compteur = 0;
 
   Position _currentPosition;
   String _currentAddress;
-  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-
-
+  final Geolocator geolocator = Geolocator()
+    ..forceAndroidLocationManager;
 
 
   @override
@@ -214,9 +260,6 @@ class _MapPageState extends State<MapPage> {
     super.dispose();
 
     list.clear();
-
-
-
   }
 
   @override
@@ -228,20 +271,27 @@ class _MapPageState extends State<MapPage> {
     fb.once().then((DataSnapshot snap) {
       var data = snap.value;
       list.clear();
-      data.forEach((key,value) {
-        EventSpot event = new EventSpot(adresse: value['Adresse'],lat: value['lat'], long: value['lon'],dateFin: value['Date de fin'],dateDebut: value['Date debut'], ville: value['Ville'],description: value['Description'], titre: value['Titre'], uid: value['uid'],region: value['Région']);
+      data.forEach((key, value) {
+        EventSpot event = new EventSpot(adresse: value['Adresse'],
+            lat: value['lat'],
+            long: value['lon'],
+            dateFin: value['Date de fin'],
+            dateDebut: value['Date debut'],
+            ville: value['Ville'],
+            description: value['Description'],
+            titre: value['Titre'],
+            uid: value['uid'],
+            region: value['Région']);
 
-        LatLng cord = new LatLng(double.parse(value['lat'].toString()), double.parse(value['lon'].toString()));
+        LatLng cord = new LatLng(double.parse(value['lat'].toString()),
+            double.parse(value['lon'].toString()));
 
 
-            _points.add(cord);
-            compteur ++;
-            list.add(event);
-
-
+        _points.add(cord);
+        compteur ++;
+        list.add(event);
       });
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
 
         });
@@ -250,20 +300,21 @@ class _MapPageState extends State<MapPage> {
 
     _markers = _points
         .map(
-          (LatLng point) => Marker(
-        point: point,
-        width: _markerSize,
-        height: _markerSize,
-        builder: (_) => Icon(Icons.location_on, size: _markerSize),
-        anchorPos: AnchorPos.align(AnchorAlign.top),
+          (LatLng point) =>
+          Marker(
+            point: point,
+            width: _markerSize,
+            height: _markerSize,
+            builder: (_) => Icon(Icons.location_on, size: _markerSize),
+            anchorPos: AnchorPos.align(AnchorAlign.top),
 
-      ),
+          ),
     )
         .toList();
 
 
-  }
 
+  }
 
 
   _getCurrentLocation() {
@@ -292,17 +343,17 @@ class _MapPageState extends State<MapPage> {
       print(e);
     }
   }
+
   @override
   Widget build(BuildContext context) {
-
-
     return FlutterMap(
       options: MapOptions(
         zoom: 11.0,
         center: new LatLng(46.171614, 7.422938),
         plugins: [PopupMarkerPlugin()],
-        onTap: (_) => _popupLayerController
-            .hidePopup(), // Hide popup when the map is tapped.
+        onTap: (_) =>
+            _popupLayerController
+                .hidePopup(), // Hide popup when the map is tapped.
       ),
       layers: [
         TileLayerOptions(
@@ -310,14 +361,15 @@ class _MapPageState extends State<MapPage> {
           subdomains: ['a', 'b', 'c'],
         ),
         PopupMarkerLayerOptions(
-          markers: _markers,
-          popupSnap: widget.popupSnap,
-          popupController: _popupLayerController,
-          popupBuilder: (BuildContext _, Marker marker) =>
-          Popup(marker, list)
+            markers: _markers,
+            popupSnap: widget.popupSnap,
+            popupController: _popupLayerController,
+            popupBuilder: (BuildContext _, Marker marker) =>
+                Popup(marker, list)
 
         ),
       ],
     );
   }
 }
+

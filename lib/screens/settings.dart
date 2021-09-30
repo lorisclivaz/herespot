@@ -47,6 +47,14 @@ class _SettingsState extends State<Settings> {
                 },
 
               ),
+              SettingsTile(title: 'Mon compte', leading: Icon(Icons.account_box),
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => UpdatePassword(),)
+                  );
+                },
+
+              ),
 
 
               SettingsTile(title: 'se déconnecter', leading: Icon(Icons.exit_to_app)
