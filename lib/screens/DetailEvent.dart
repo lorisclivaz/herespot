@@ -1,11 +1,10 @@
-
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:herespot/Models/events.dart';
-import 'package:herespot/screens/webView.dart';
 
 
 class DetailEvent extends StatefulWidget {
+
+  //Variable de la classe detailEvent
   final String uid;
   final String description;
   final String adresse;
@@ -15,16 +14,18 @@ class DetailEvent extends StatefulWidget {
   final String region;
   final String ville;
 
+  //Constructeur de la classe detailEvent
   DetailEvent(this.uid, this.description, this.adresse, this.dateDebut, this.dateFin, this.titre, this.region, this.ville);
 
+  //On va créer le state de la page
   @override
   _DetailEventState createState() => _DetailEventState();
 }
 
 class _DetailEventState extends State<DetailEvent> {
 
-  EventSpot eventdetail;
-
+  //Variable de la classe detailEventstate
+   EventSpot eventdetail;
    String description;
    String adresse;
    String dateDebut;
@@ -33,28 +34,25 @@ class _DetailEventState extends State<DetailEvent> {
    String region;
    String ville;
 
+   //Methode qui se lance au moment du loading de la page
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
- description = widget.description;
- adresse = widget.adresse;
- dateDebut = widget.dateDebut;
- dateFin = widget.dateFin;
- titre = widget.titre;
- region = widget.region;
- ville = widget.ville;
-
- print(ville);
-
+     description = widget.description;
+     adresse = widget.adresse;
+     dateDebut = widget.dateDebut;
+     dateFin = widget.dateFin;
+     titre = widget.titre;
+     region = widget.region;
+     ville = widget.ville;
   }
 
 
+  //Widget de rendu du détail de l'évènement
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar:  AppBar(
         backgroundColor: Colors.black,
@@ -183,6 +181,7 @@ class _DetailEventState extends State<DetailEvent> {
                     child: FloatingActionButton.extended(
                       label: Text('Adresse et N° :'),
 
+                      heroTag: 'Tag1',
                       backgroundColor: Colors.black,
                     ),
                   ),
@@ -217,6 +216,7 @@ class _DetailEventState extends State<DetailEvent> {
                   SizedBox(height: 20,),
                   Center(
                     child: FloatingActionButton.extended(
+                      heroTag: 'Tag2',
                       label: Text('Description de l''évènement :'),
                       backgroundColor: Colors.black,
                     ),

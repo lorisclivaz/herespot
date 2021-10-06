@@ -1,16 +1,15 @@
 import 'dart:async';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:herespot/Models/events.dart';
+import 'package:herespot/Models/user.dart';
 
 
 
 class Database{
 
-  //Variables
+  //Variables de la classe database
   final getEvent = FirebaseDatabase.instance.reference().child("Properties");
   List<EventSpot> listEvents = List();
-
 
   //Méthode permettant de créer l'utilisateur dans la base de données
   Future<String> createUser(String nom, String prenom, String region, String email, String uid) async {
@@ -47,14 +46,6 @@ class Database{
       'lat': lat,
       'lon': long,
       'uid': uid
-
-
-
-
-
-
-
-
     };
 
     DatabaseReference reference = FirebaseDatabase.instance
@@ -66,7 +57,7 @@ class Database{
   }
 
 
-
+  //Méthode permettant de récupérer l'item sur la map
   static Future<List> getItems( ) async {
     Completer<List> completer = new Completer<List>();
 
@@ -81,6 +72,46 @@ class Database{
     } );
 
     return completer.future;
+  }
+
+  //Méthode permettant de créer un évènement
+  Future<String> createUserInfo(String uid, String email) async {
+    var user = <String, dynamic>{
+      'Uid':uid,
+      'Email':email,
+    };
+    DatabaseReference reference = FirebaseDatabase.instance
+        .reference()
+        .child("Users").push();
+    reference.set(user);
+  }
+
+  Future<String> getUserInfo(String uid, String email) async
+  {
+    final fb = FirebaseDatabase.instance.reference()
+        .child('Users')
+        .orderByKey();
+
+    fb.once().then((DataSnapshot snap) {
+      var data = snap.value;
+
+      data.forEach((key, value) {
+        User user = new User(
+           uid: value['Uid'],
+          email: value['Email'],
+        );
+        if(user.email == email)
+        {
+          return "Yes";
+        }else{
+          return null;
+        }
+      });
+
+    });
+
+
+
   }
 
 }

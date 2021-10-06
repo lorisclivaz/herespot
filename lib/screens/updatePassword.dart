@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:herespot/Models/userSecurity.dart';
 
 class UpdatePassword extends StatefulWidget {
+
+  //Création du state de la page
   @override
   _UpdatePasswordState createState() => _UpdatePasswordState();
 }
 
 class _UpdatePasswordState extends State<UpdatePassword> {
+
+  //Variable de la classe UpdatePassword
   final FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _emailController;
 
 
+  //Méthode d'initialisation
   @override
   void initState() {
     // TODO: implement initState
@@ -22,6 +27,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
   }
 
+  //Méthode de suppression
   @override
   void dispose() {
     // TODO: implement dispose
@@ -31,6 +37,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
   }
 
+  //Widget qui va build la page updatePassword
   @override
   Widget build(BuildContext context) {
     return Scaffold(

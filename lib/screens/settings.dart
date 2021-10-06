@@ -5,15 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class Settings extends StatefulWidget {
+
+  //Création du state de la page Settings
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
 
-
-
-
+  //Widget qui build la page SettingsState
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthServices>(context);

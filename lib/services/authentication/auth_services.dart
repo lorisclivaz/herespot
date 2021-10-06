@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 
 
 class AuthServices with ChangeNotifier{
+
+  //Variable de la classe authServices
   bool _isLoading = false;
   String _errorMessage;
   bool get isLoading => _isLoading;
@@ -12,11 +14,7 @@ class AuthServices with ChangeNotifier{
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String email;
 
-
-
-
-
-
+  //Méthode permettant l'enregistrement d'un utilisateur
   Future register(String email, String password) async {
     setLoading(true);
     try{
@@ -39,7 +37,7 @@ class AuthServices with ChangeNotifier{
   }
 
 
-
+  //Méthode permettant le login d'un utilisateur
   Future login(String email, String password) async {
     try{
       setLoading(true);
@@ -62,23 +60,26 @@ class AuthServices with ChangeNotifier{
 
   }
 
-
+  //Méthode permettant le logout
   Future logout() async {
     await firebaseAuth.signOut();
   }
 
+  //Méthode qui change l'état du login
   void setLoading(val)
   {
     _isLoading = val;
     notifyListeners();
   }
 
+  //Méthode qui change l'état du message d'erreur
   void setMessage(message)
   {
     _errorMessage = message;
     notifyListeners();
   }
 
+  //Méthode qui va streaming le user tout au long de son expérience sur l'application
   Stream<User> get user =>
       firebaseAuth.authStateChanges().map((event) => event);
 }

@@ -39,9 +39,13 @@ dependencies:
   fab_circular_menu: ^1.0.0
   settings_ui: ^0.2.0
   webview_flutter: ^1.0.5
-  geolocator: ^5.3.1
   geocoding: ^2.0.0
   email_auth: ^1.0.0
+  contactus: ^1.2.0
+  location: ^4.3.0
+  geolocator: ^7.6.2
+  fluttertoast: ^8.0.8
+
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +65,8 @@ flutter:
   assets:
       - assets/herespot.png
       - assets/avatar.png
+      - assets/montagne.jpeg
+      - assets/background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

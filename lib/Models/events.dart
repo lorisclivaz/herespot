@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 class EventSpot {
 
-  //Variable questions
+  //Variable de eventspot
   String key;
   String uid;
   String titre;
@@ -20,10 +20,9 @@ class EventSpot {
   //Constructeur
   EventSpot({this.adresse, this.lat, this.long, this.dateFin,this.dateDebut, this.ville, this.description, this.titre, this.uid, this.region});
 
+  //Methode permettant de récupérer les valeurs dans la base de données
   EventSpot.fromSnapshot(DataSnapshot snapshot)
   {
-
-
     this.uid = snapshot.value["uid"];
     this.lat = snapshot.value["lat"];
     this.long = snapshot.value["lon"];
@@ -34,15 +33,6 @@ class EventSpot {
     this.titre = snapshot.value["Titre"];
     this.adresse = snapshot.value["Adresse"];
     this.region = snapshot.value["Région"];
-
-
-
-
-
-
-
-
-
   }
 
 

@@ -10,14 +10,17 @@ class Authentication extends StatefulWidget {
 
 class _AuthenticationState extends State<Authentication> {
 
+  //variable permettant de savoir si le user et connecté ou pas
   bool isToggle = false;
 
+  //Methode permettant de set le state du user
   void toggleScreen(){
     setState(() {
       isToggle = !isToggle;
     });
   }
 
+  //Widget permettant de build la page register ou la page login selon le "istoggle"
   @override
   Widget build(BuildContext context) {
 

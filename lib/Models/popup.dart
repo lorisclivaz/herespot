@@ -5,17 +5,23 @@ import 'package:herespot/Models/events.dart';
 import 'package:herespot/screens/DetailEvent.dart';
 
 class Popup extends StatefulWidget {
+
+  //Variable de la classe popup
   final Marker marker;
   final List<EventSpot> event;
 
+  //Constructeur de la classe popup
   Popup(this.marker, this.event, {Key key}) : super(key: key);
 
+  //On va créer l'état de la page
   @override
   _PopupState createState() => _PopupState(this.marker, this.event);
 }
 
 class _PopupState extends State<Popup> {
 
+  //Variable de la classe popupstate
+  int _currentIcon = 0;
   final Marker _marker;
   final List<EventSpot> _event;
   static String region =" ";
@@ -27,19 +33,18 @@ class _PopupState extends State<Popup> {
   static String description = '';
   static String adresse = ' ';
 
-
+  //Les variables de liste
   List<EventSpot> detailEvents = [];
-
   final List<IconData> _icons = [
     Icons.star_border,
     Icons.star_half,
     Icons.star
   ];
 
-  int _currentIcon = 0;
-
+  //Constructeur
   _PopupState(this._marker, this._event);
 
+  //Widget permettant d'afficher la popup
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +72,7 @@ class _PopupState extends State<Popup> {
     );
   }
 
-
+  //Widget correspondant à la mise en forme de la description de la popup
   Widget _cardDescription(BuildContext context)
   {
 
@@ -82,7 +87,6 @@ class _PopupState extends State<Popup> {
           , lat: element.lat);
 
           //detailEvents.add(eventDetail);
-
           ville = element.ville;
           titre = element.titre;
           dateDebut = element.dateDebut;
