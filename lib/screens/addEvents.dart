@@ -28,6 +28,15 @@ class _addEventsState extends State<addEvents> {
   int randomNumber;
   Database db = new Database();
 
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    print("Ajout d'évènement dispose !!!");
+  }
+
   //Widget permettant d'ajouter un évènement sur la page homeScreen
   @override
   Widget build(BuildContext context) {

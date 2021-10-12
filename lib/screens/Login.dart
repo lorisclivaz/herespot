@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:herespot/database/database.dart';
 import 'package:herespot/screens/updatePassword.dart';
 import 'package:provider/provider.dart';
@@ -30,12 +31,16 @@ class _LoginState extends State<Login> {
 
 
 
+
   //Méthode d'initialisation
   @override
   void initState() {
 
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+
+
+
 
     // TODO: implement initState
     super.initState();
@@ -185,16 +190,16 @@ class _LoginState extends State<Login> {
                         onPressed: () async{
 
 
+                              if(_formkey.currentState.validate())
+                              {
 
-                          if(_formkey.currentState.validate())
-                            {
+                                    await loginProvider.login(
+                                        _emailController.text.trim(),
+                                        _passwordController.text.trim()
+                                    );
 
+                              }
 
-                                await loginProvider.login(
-                                    _emailController.text.trim(),
-                                    _passwordController.text.trim()
-                                );
-                            }
                         },
                         height: 60,
                       minWidth: loginProvider.isLoading ? null : double.infinity,
@@ -260,4 +265,8 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+
+
 }
+

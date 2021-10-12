@@ -13,6 +13,14 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    print('Settings page dispose !!');
+  }
   //Widget qui build la page SettingsState
   @override
   Widget build(BuildContext context) {

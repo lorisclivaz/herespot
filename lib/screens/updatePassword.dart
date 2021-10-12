@@ -33,6 +33,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     // TODO: implement dispose
     super.dispose();
 
+    print('UpdatePassword page dispose !!!');
+
     _emailController.dispose();
 
   }

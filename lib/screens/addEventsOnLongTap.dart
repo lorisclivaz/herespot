@@ -10,9 +10,12 @@ import 'package:herespot/screens/homeScreen.dart';
 
 class addEventsOnLongTap extends StatefulWidget {
 
+  //Variables de la classe addeventsonlongtap
   double lat;
   double long;
 
+
+  //Constructeur
   addEventsOnLongTap({this.lat, this.long});
 
 
@@ -35,6 +38,7 @@ class _addEventsOnLongTapState extends State<addEventsOnLongTap> {
   int randomNumber;
   Database db = new Database();
 
+  //Méthode permettant de récupérer l'adresse selon les points d'intérêt
   getUserLocation() async{
     List<Placemark> placemarks = await placemarkFromCoordinates(widget.lat, widget.long);
     Placemark place = placemarks[0];
@@ -42,6 +46,15 @@ class _addEventsOnLongTapState extends State<addEventsOnLongTap> {
     _adresse.text = place.street;
     _ville.text = place.locality;
     _region.text = place.country;
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    print('Ajout d''évènement 2 dispose !!!');
   }
 
   //Widget permettant d'ajouter un évènement sur la page homeScreen
@@ -56,6 +69,7 @@ class _addEventsOnLongTapState extends State<addEventsOnLongTap> {
 
     getUserLocation();
 
+    //Mise en forme de la page
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -65,7 +79,7 @@ class _addEventsOnLongTapState extends State<addEventsOnLongTap> {
           leading: IconButton(
               icon: Icon(Icons.arrow_back,color: Colors.white,),
               onPressed: (){
-                Navigator.pushReplacement( context, MaterialPageRoute( builder: (context) => HomeScreen()), ).then((value) => setState(() {}));
+                Navigator.pushReplacement( context, MaterialPageRoute( builder: (context) => HomeScreen()));
 
               }
           ),

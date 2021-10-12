@@ -40,13 +40,19 @@ class AuthServices with ChangeNotifier{
   //Méthode permettant le login d'un utilisateur
   Future login(String email, String password) async {
     try{
+
       setLoading(true);
 
       UserCredential authResult = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 
       User user = authResult.user;
       setLoading(false);
+
+
+
+
       return user;
+
     } on SocketException{
       setLoading(false);
       setMessage('No internet, please connect to internet');
@@ -63,6 +69,7 @@ class AuthServices with ChangeNotifier{
   //Méthode permettant le logout
   Future logout() async {
     await firebaseAuth.signOut();
+
   }
 
   //Méthode qui change l'état du login

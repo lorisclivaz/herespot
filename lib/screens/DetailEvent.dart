@@ -49,6 +49,13 @@ class _DetailEventState extends State<DetailEvent> {
      ville = widget.ville;
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    print('Détail d''évèenement dispose !!!');
+  }
 
   //Widget de rendu du détail de l'évènement
   @override
