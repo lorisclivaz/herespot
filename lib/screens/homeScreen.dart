@@ -12,6 +12,7 @@ import 'package:herespot/Models/events.dart';
 import 'package:herespot/database/database.dart';
 import 'package:herespot/screens/aboutScreen.dart';
 import 'package:herespot/screens/addEventsOnLongTap.dart';
+import 'package:herespot/screens/profilPage.dart';
 import 'package:herespot/screens/sendEmail.dart';
 import 'package:herespot/screens/settings.dart';
 import 'package:herespot/services/authentication/auth_services.dart';
@@ -138,6 +139,16 @@ class _MapPageScaffoldState extends State<MapPageScaffold> {
                   spacing: 10, // to apply margin horizontally
                   runSpacing: 10, // to apply margin vertically
                   children: [
+                    ListTile(
+                      leading: Icon(Icons.person_rounded, color: Colors.white,),
+                      title: Text('Mon profile', style: TextStyle(color: Colors.white),),
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ProfilPage(),
+                        )
+                        );
+                      },
+                    ),
                     ListTile(
                       leading: Icon(Icons.settings, color: Colors.white,),
                       title: Text('Réglages', style: TextStyle(color: Colors.white),),

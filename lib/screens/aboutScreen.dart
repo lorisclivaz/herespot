@@ -28,7 +28,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 flex:5,
                 child:Container(
                   width: double.infinity,
-                  color: Colors.black38,
+                  color: Colors.black87,
 
 
                   child: Column(
@@ -66,7 +66,7 @@ class _AboutScreenState extends State<AboutScreen> {
               Expanded(
                 flex:6,
                 child: Container(
-                  color: Colors.black38,
+                  color: Colors.black87,
                   child: Center(
                       child:Card(
                           margin: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),

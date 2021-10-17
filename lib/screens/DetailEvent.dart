@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:herespot/Models/events.dart';
 
 
@@ -105,9 +106,11 @@ class _DetailEventState extends State<DetailEvent> {
                             ),
                           ),
                           SizedBox(height: 40.0,),
-                          Text(
-                            ' Début : ${dateDebut}            fin : ${dateFin}',
-                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                          Center(
+                            child: Text(
+                              ' Début : ${dateDebut}            fin : ${dateFin}',
+                              style: TextStyle(color: Colors.black, fontSize: 19),
+                            ),
                           ),
                           SizedBox(height: 15.0,),
                           SizedBox(height: 15.0,),
@@ -116,7 +119,7 @@ class _DetailEventState extends State<DetailEvent> {
                             children: [
                               Container(
                                 height: 60.0,
-                                width: 150,
+                                width: 170,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.0),
                                     color: Colors.black12,
@@ -141,7 +144,7 @@ class _DetailEventState extends State<DetailEvent> {
 
                               Container(
                                 height: 60.0,
-                                width: 150.0,
+                                width: 170.0,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20.0),
                                     color: Colors.black12,
@@ -239,6 +242,7 @@ class _DetailEventState extends State<DetailEvent> {
                           color: Colors.black.withOpacity(.8)),
                     ),
                   ),
+
                 ],
 
               ),
@@ -246,7 +250,31 @@ class _DetailEventState extends State<DetailEvent> {
             SizedBox(height: 5.0,),
 
             SizedBox(height: 50,),
+            FloatingActionButton.extended(
+              label: Text("Aller à l'évènement"),
+
+              heroTag: 'Tag3',
+              backgroundColor: Colors.black,
+              onPressed: (){
+
+                Fluttertoast.showToast(msg: "Vous êtes enregistrer pour cette évènement");
+
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(height: 50,),
+
+            FloatingActionButton.extended(
+              label: Text("Retour vers la page d'accueil"),
+
+              heroTag: 'Tag4',
+              backgroundColor: Colors.black,
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            ),
           ],
+
 
         ),
       ),
